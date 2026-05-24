@@ -16,6 +16,7 @@ export default class GameController {
 
   init() {
     this.createGoblinImage();
+    this.createGameOverMessage();               // исправлено название
     this.board = new Board(this.boardSize, () => this.onHit());
     this.board.createBoard();
     this.board.setGoblinImage(this.goblinImage);
@@ -32,10 +33,42 @@ export default class GameController {
     this.goblinImage = img;
   }
 
+  // Создаём модальное окно
+  createGameOverMessage() {
+    // Удаляем предыдущее, если есть
+    const existing = document.querySelector('.game-over-message');
+    if (existing) existing.remove();
+
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'game-over-message';
+    messageDiv.style.display = 'none';
+    messageDiv.innerHTML = `
+      <div class="game-over-content">
+        <h2>Игра окончена!</h2>
+        <p>Вы пропустили ${this.maxMisses} гоблинов.</p>
+        <button id="restartGameBtn">Новая игра</button>
+      </div>
+    `;
+    document.body.appendChild(messageDiv);
+
+    const restartBtn = messageDiv.querySelector('#restartGameBtn');
+    restartBtn.addEventListener('click', () => this.restartGame());
+  }
+
+  showGameOverMessage() {
+    const messageDiv = document.querySelector('.game-over-message');
+    if (messageDiv) messageDiv.style.display = 'flex';
+  }
+
+  hideGameOverMessage() {
+    const messageDiv = document.querySelector('.game-over-message');
+    if (messageDiv) messageDiv.style.display = 'none';
+  }
+
   startGame() {
     this.isRunning = true;
     this.score.reset();
-    this.moveGoblinToRandomPosition(true); // первый раз без проверки на совпадение
+    this.moveGoblinToRandomPosition(true);
     this.scheduleNextMove();
   }
 
@@ -73,7 +106,13 @@ export default class GameController {
     this.isRunning = false;
     if (this.timerId) clearTimeout(this.timerId);
     this.board.removeGoblin();
-    alert('Игра окончена! Вы пропустили 5 гоблинов.');
+    this.showGameOverMessage();        // вместо alert
+  }
+
+  restartGame() {
+    this.hideGameOverMessage();
+    this.score.reset();
+    this.startGame();
   }
 
   stop() {

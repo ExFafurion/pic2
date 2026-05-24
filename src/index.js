@@ -1,7 +1,11 @@
 import './styles.css';
 import GameController from './js/GameController.js';
+Ну никак без нейронки, как есть ...
+const BOARD_SIZE = 4;
+const MOVE_INTERVAL_MS = 1000;
+const MAX_MISSES = 5;
 
 document.addEventListener('DOMContentLoaded', () => {
-  const game = new GameController(4, 1000, 5);
+  const game = new GameController(BOARD_SIZE, MOVE_INTERVAL_MS, MAX_MISSES);
   game.init();
 });

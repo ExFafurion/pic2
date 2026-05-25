@@ -1,0 +1,106 @@
+* {
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    text-align: center;
+}
+
+.score-panel {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    margin: 0 auto 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background: #333;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: repeat(4, 100px);
+    gap: 10px;
+    background: #2e7d32;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.cell {
+    background: #1b5e20;
+    border-radius: 15px;
+    box-shadow: inset 0 0 0 2px #4caf50, 0 4px 8px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: inherit;
+    transition: transform 0.1s;
+}
+
+.cell:active {
+    transform: scale(0.95);
+}
+
+.cell img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.game-over-message {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.game-over-content {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.game-over-content h2 {
+  color: #d32f2f;
+  margin-bottom: 15px;
+}
+
+.game-over-content button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.game-over-content button:hover {
+  background: #0056b3;
+}
